@@ -1,15 +1,19 @@
 <%= form_for(@membership) do |f| %>
-  <% if @membership.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
 
-      <ul>
-      <% @membership.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.label company %>
+  <%= f.text_field company %>
+
+  <%= f.label amount %>
+  <%= f.text_field amount %>
+
+  <%= f.label expires_on %>
+  <%= f.text_field expires_on %>
+
+  <%= f.label amount_paid %>
+  <%= f.text_field amount_paid %>
+
+  <%= f.label paid_at %>
+  <%= f.text_field paid_at %>
 
   <div class="actions">
     <%= f.submit %>

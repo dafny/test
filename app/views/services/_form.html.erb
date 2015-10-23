@@ -1,15 +1,12 @@
 <%= form_for(@service) do |f| %>
-  <% if @service.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
 
-      <ul>
-      <% @service.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.label :expected_day %>
+  <%= f.text_field :expected_day %>
+
+  <%= f.label :expected_month %>
+  <%= f.text_field :expected_month %>
 
   <div class="actions">
     <%= f.submit %>

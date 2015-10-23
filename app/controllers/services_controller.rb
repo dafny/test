@@ -31,7 +31,7 @@ class ServicesController < ApplicationController
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render :show, status: :created, location: @service }
       else
-        format.html { render :new }
+        format.html { render :new, alert: @service.errors.full_messages }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
@@ -45,7 +45,7 @@ class ServicesController < ApplicationController
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: @service }
       else
-        format.html { render :edit }
+        format.html { render :edit, alert: @service.errors.full_messages }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
@@ -54,10 +54,14 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
-    @service.destroy
     respond_to do |format|
-      format.html { redirect_to services_url, notice: 'Service was successfully destroyed.' }
-      format.json { head :no_content }
+      if @service.destroy
+        format.html { redirect_to services_url, notice: 'Service was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to services_url, alert: @service.errors.full_messages }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -69,6 +73,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params[:service]
+      params.require(:service).permit(:name, :expected_day, :expected_month)
     end
 end

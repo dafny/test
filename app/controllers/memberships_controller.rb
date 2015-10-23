@@ -54,10 +54,14 @@ class MembershipsController < ApplicationController
   # DELETE /memberships/1
   # DELETE /memberships/1.json
   def destroy
-    @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
-      format.json { head :no_content }
+      if @membership.destroy
+        format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to memberships_url, alert: @membership.errors.full_messages }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -69,6 +73,6 @@ class MembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
-      params[:membership]
+      params.require(:membership).permit(:amount, :amount_paid, :paid_at, :expires_on, :company_id)
     end
 end

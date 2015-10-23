@@ -1,10 +1,13 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Memberships</h1>
 
 <table>
   <thead>
     <tr>
+      <th><%= Membership.human_attribute_name(:company) %></th>
+      <th><%= Membership.human_attribute_name(:amount) %></th>
+      <th><%= Membership.human_attribute_name(:expires_on) %></th>
+      <th><%= Membership.human_attribute_name(:amount_paid) %></th>
+      <th><%= Membership.human_attribute_name(:paid_at) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,6 +15,11 @@
   <tbody>
     <% @memberships.each do |membership| %>
       <tr>
+        <td><%= membership.company %></td>
+        <td><%= membership.amount %></td>
+        <td><%= membership.expires_on %></td>
+        <td><%= membership.amount_paid %></td>
+        <td><%= membership.paid_at %></td>
         <td><%= link_to 'Show', membership %></td>
         <td><%= link_to 'Edit', edit_membership_path(membership) %></td>
         <td><%= link_to 'Destroy', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>

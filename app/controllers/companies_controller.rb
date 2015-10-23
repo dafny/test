@@ -31,7 +31,7 @@ class CompaniesController < ApplicationController
         format.html { redirect_to @company, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
-        format.html { render :new }
+        format.html { render :new, alert: @company.errors.full_messages }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
     end
@@ -45,7 +45,7 @@ class CompaniesController < ApplicationController
         format.html { redirect_to @company, notice: 'Company was successfully updated.' }
         format.json { render :show, status: :ok, location: @company }
       else
-        format.html { render :edit }
+        format.html { render :edit, alert: @company.errors.full_messages }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
     end
@@ -54,10 +54,14 @@ class CompaniesController < ApplicationController
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
-    @company.destroy
     respond_to do |format|
-      format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
-      format.json { head :no_content }
+      if @company.destroy
+        format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to companies_url, alert: @company.errors.full_messages }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -69,6 +73,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params[:company]
+      params.require(:company).permit(:name, :registry_number, :state_registration, :municipal_registration, :active)
     end
 end

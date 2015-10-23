@@ -31,7 +31,7 @@ class ContactsController < ApplicationController
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
-        format.html { render :new }
+        format.html { render :new, alert: @contact.errors.full_messages }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -45,7 +45,7 @@ class ContactsController < ApplicationController
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
-        format.html { render :edit }
+        format.html { render :edit, alert: @contact.errors.full_messages }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -54,10 +54,14 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
-    @contact.destroy
     respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
-      format.json { head :no_content }
+      if @contact.destroy
+        format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to contacts_url, alert: @contact.errors.full_messages }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -69,6 +73,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params[:contact]
+      params.require(:contact).permit(:name, :company_id)
     end
 end
