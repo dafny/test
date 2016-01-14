@@ -1,33 +1,37 @@
-<h1>Listing Companies</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title"><%= t("listing") %></h4>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= Company.human_attribute_name(:name) %></th>
-      <th><%= Company.human_attribute_name(:registry_number) %></th>
-      <th><%= Company.human_attribute_name(:state_registration) %></th>
-      <th><%= Company.human_attribute_name(:municipal_registration) %></th>
-      <th><%= Company.human_attribute_name(:active) %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @companies.each do |company| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= company.name %></td>
-        <td><%= company.registry_number %></td>
-        <td><%= company.state_registration %></td>
-        <td><%= company.municipal_registration %></td>
-        <td><%= company.active %></td>
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th><%= Company.human_attribute_name(:name) %></th>
+        <th><%= Company.human_attribute_name(:registry_number) %></th>
+        <th><%= Company.human_attribute_name(:state_registration) %></th>
+        <th><%= Company.human_attribute_name(:municipal_registration) %></th>
+        <th><%= Company.human_attribute_name(:active) %></th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= company.name %></td>
+          <td><%= company.registry_number %></td>
+          <td><%= company.state_registration %></td>
+          <td><%= company.municipal_registration %></td>
+          <td><%= t company.active %></td>
+          <td><%= link_to t('show'), company, class: "btn btn-primary btn-xs"  %></td>
+          <td><%= link_to t('edit'), edit_company_path(company), class: "btn btn-primary btn-xs" %></td>
+          <td><%= link_to t('destroy'), company, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
 <br>
 
-<%= link_to 'New Company', new_company_path %>
+<%= link_to t('new' ), new_company_path, class: "btn btn-success" %>

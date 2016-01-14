@@ -1,0 +1,40 @@
+pt-BR:
+  activerecord:
+    models:
+      companies_service: Obrigações da Empresa
+      company: Empresa
+      contact: Contato
+      phone: Telefone
+      service: Serviço
+      user: Usuário
+    attributes:
+      companies_service:
+        company_id: Empresa
+        service_id: Serviço
+        expeted_send_date: Data Prevista de Entrega
+        send_at: Enviada em
+        user_id: Enviada por
+      company:
+        name: Nome
+        registry_number: CNPJ
+        state_registration: Inscrição Estadual
+        municipal_registration: Inscrição Municipal
+        active: Ativo
+        filial: Filial
+      contact:
+        company_id: Empresa
+        name: Nome
+      phone:
+        company_id: Empresa
+        ddd: DDD
+        number: Número
+      service:
+        name: Nome
+        expected_day: Dia Previsto
+        expected_month: Mês Previsto
+      user:
+        name: Nome
+        email: E-mail
+        password: Senha
+        company_id: Empresa
+        remember_me: Lembrar-me

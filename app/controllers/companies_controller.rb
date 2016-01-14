@@ -4,7 +4,7 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
+    @companies = current_user.admin? ? Company.accounting : Company.by_user(current_user)
   end
 
   # GET /companies/1
@@ -24,7 +24,7 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(company_params)
+    @company = Company.new(company_params, parent: current_user.company)
 
     respond_to do |format|
       if @company.save

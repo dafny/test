@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<%= company.name %>
-<%= company.registry_number %>
-<%= company.state_registration %>
-<%= company.municipal_registration %>
-<%= company.active %>
+<%= @company.name %>
+<%= @company.registry_number %>
+<%= @company.state_registration %>
+<%= @company.municipal_registration %>
+<%= @company.active %>
 
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
